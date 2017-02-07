@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="man" class="spring.aop.Man"></bean>
+    <bean id="helper" class="spring.aop.Helper"></bean>
+
+    <aop:config>
+        <aop:aspect ref="helper">
+            <aop:before method="before" pointcut="execution(* *.doSomething(..))"/>
+            <aop:after method="after" pointcut="execution(* *.doSomething(..))"/>
+        </aop:aspect>
+    </aop:config>
+
+    <!--配置bean,配置后该类由spring管理-->
+    <bean name="soldier" class="spring.ioc.Soldier">
+        <!--(1)依赖注入,配置当前类中相应的属性-->
+        <property name="saber" ref="saber"></property>
+    </bean>
+    <bean name="saber" class="spring.ioc.Saber">
+        <property name="name" value="helo"></property>
+    </bean>
+</beans>

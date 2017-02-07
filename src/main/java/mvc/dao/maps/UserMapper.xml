@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mvc.dao.maps.UserMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <select id="selectUserById" parameterType="int" resultType="User">
+        <![CDATA[
+            select * from `User` where ID = #{ID}
+        ]]>
+    </select>
+
+    <select id="selectUser" parameterType="User" resultType="User">
+        <![CDATA[
+            select * from `User`
+        ]]>
+
+        <where>
+            <if test="ID != 0">
+                and ID = #{ID}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertOneUser" parameterType="User">
+        <![CDATA[
+        insert into `User`(Name, Age, Sex)
+            values(#{Name}, #{Age}, #{Sex});
+    ]]>
+    </insert>
+
+</mapper>

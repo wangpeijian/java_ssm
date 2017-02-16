@@ -50,24 +50,30 @@ public class Main {
 		return "ioc";
 	}
 	
-	@RequestMapping(value = "/test", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "/test")
 	@ResponseBody
 	public String test() {
 		return userService.selectUser(new User(0, "", "", "")).toString();
 	}
 	
-	@RequestMapping(value = "/session", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "/session")
 	@ResponseBody
 	public String session() {
 		
 		log.info("厉害了");
 		
-		userService.insertOneUser(new User(99, "中文007", "0", "0"));
+		try{
+			userService.insertOneUser(new User(99, "中文007", "0", "0"));
+		}catch (Exception e){
+			log.info("捕获异常");
+		}
+		
+		log.info("报错结束了");
 		
 		return "session";
 	}
 	
-	@RequestMapping(value = "/selectCache", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "/selectCache")
 	@ResponseBody
 	public String selectCache(HttpServletRequest request) {
 		
@@ -82,7 +88,7 @@ public class Main {
 		return userService.selectUser(new User(id, "", "", "")).toString();
 	}
 	
-	@RequestMapping(value = "/removeCache", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "/removeCache")
 	@ResponseBody
 	public String removeCache(HttpServletRequest request) {
 		
@@ -99,7 +105,7 @@ public class Main {
 		return "clear";
 	}
 	
-	@RequestMapping(value = "/cache2", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "/cache2")
 	@ResponseBody
 	public String cache2(HttpServletRequest request) {
 		
@@ -116,11 +122,19 @@ public class Main {
 		return "cache2";
 	}
 	
-	@RequestMapping(value = "/view", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "/view")
 	public String view() {
 		
 		log.info("/views/index");
 		
 		return "/views/index";
+	}
+	
+	@RequestMapping(value = "/postData")
+	@ResponseBody
+	public String postData(HttpServletRequest request) {
+		
+		log.info("/postData::" + request.getParameter("id") +"--"+ request.getParameter("name"));
+		return "{\"id\": 2, \"name\": \"中文\"}";
 	}
 }

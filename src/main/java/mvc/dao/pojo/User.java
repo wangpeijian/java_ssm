@@ -16,6 +16,10 @@ public class User implements Serializable {
 	
 	private String Sex;
 	
+	public User(){
+	
+	}
+	
 	public User(Integer ID, String Name, String Age, String Sex){
 		this.ID = ID;
 		this.Name = Name;

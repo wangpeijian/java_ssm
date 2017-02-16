@@ -32,6 +32,7 @@
                         <value>application/json;charset=UTF-8</value>
                     </list>
                 </property>
+                <!--防止输出大量的 Accept-Charset-->
                 <property name="writeAcceptCharset" value="false" />
             </bean>
         </mvc:message-converters>
